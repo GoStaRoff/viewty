@@ -1,0 +1,48 @@
+name: viewty
+description: Mobile application for viewing video content.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  get:
+  dio: ^4.0.0
+  lottie: ^1.2.1
+  flutter_svg: any
+  swipe_cards: ^0.1.0
+  http_parser: ^4.0.0
+  get_storage: ^2.0.3
+  video_player: ^2.2.5
+  url_launcher: ^6.0.12
+  carousel_slider: ^4.0.0
+  cupertino_icons: ^1.0.2
+  wc_flutter_share: ^0.4.0
+  device_info_plus: ^3.1.0
+  internet_connection_checker: ^0.0.1+2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - lottie/
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
+
