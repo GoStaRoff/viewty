@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:viewty/service/dynamic_link_api.dart';
 import 'package:viewty/views/home/home_screen.dart';
 
 class MainController extends GetxController {

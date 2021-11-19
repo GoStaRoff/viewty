@@ -8,81 +8,38 @@ import 'empty_failure_no_internet_view.dart';
 
 class HomeView extends GetView<HomeController> {
   static String id = "/home";
-  final PageController _pageController = PageController(
-    initialPage: 2,
-    keepPage: true,
-  );
 
-  var prevPages = [].obs;
-  var nextPages = [].obs;
+  bool nextUsed = false;
+  bool prevUsed = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         color: GREY,
-        // image: DecorationImage(
-        //   scale: 1.5,
-        //   repeat: ImageRepeat.repeat,
-        //   image: AssetImage("assets/background_image.png"),
-        // ),
       ),
       child: Obx(() => controller.connectionStatus.value == 1
           ? controller.obx(
               (state) => Obx(
-                () => PageView(
-                  // onPageChanged: (int pageIndex) async {
-                  //   if (pageIndex == 3 + nextPages.length) {
-                  //     controller.api
-                  //         .next(state!.next.id)
-                  //         .then((value) => nextPages.value = [
-                  //               ...nextPages,
-                  //               PlayerPage(
-                  //                 video: value,
-                  //               ),
-                  //             ]);
-                  //   } else if (pageIndex == 1) {
-                  //     controller.api
-                  //         .prev(state!.prev.id)
-                  //         .then((value) => prevPages.value = [
-                  //               ...prevPages,
-                  //               PlayerPage(
-                  //                 video: value,
-                  //               ),
-                  //             ]);
-                  //     _pageController.animateToPage(2,
-                  //         duration: Duration(seconds: 1),
-                  //         curve: Curves.fastOutSlowIn);
-                  //   }
-                  // },
-                  physics: const BouncingScrollPhysics(),
-                  controller: _pageController,
-                  children: [
-                    const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2.0,
-                      ),
-                    ),
-                    ...prevPages,
-                    PlayerPage(
-                      video: state!.prev,
-                    ),
-                    PlayerPage(
-                      video: state.current,
-                    ),
-                    PlayerPage(
-                      video: state.next,
-                    ),
-                    ...nextPages,
-                    const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2.0,
-                      ),
-                    ),
-                  ],
-                ),
+                () => PageView.builder(
+                    onPageChanged: (pageIndex) {
+                      if (pageIndex == 1 && !prevUsed) {
+                        controller.prevIndex = state!.prev.id;
+                        prevUsed = true;
+                      } else if (controller.prevPages.length +
+                                  controller.nextPages.length +
+                                  3 ==
+                              pageIndex &&
+                          !nextUsed) {
+                        controller.nextIndex = state!.next.id;
+                        nextUsed = true;
+                      }
+                    },
+                    controller: controller.pageController,
+                    itemCount: controller.pages(state).length,
+                    itemBuilder: (context, i) {
+                      return controller.pages(state)[i];
+                    }),
               ),
               onLoading: const Center(
                 child: CircularProgressIndicator(

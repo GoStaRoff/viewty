@@ -7,13 +7,16 @@ import 'package:viewty/constants/colors.dart';
 import 'package:viewty/constants/text_styles.dart';
 import 'package:viewty/main_controller.dart';
 import 'package:viewty/model/video_model.dart';
+import 'package:viewty/service/dynamic_link_api.dart';
 import 'package:viewty/views/home/home_controller.dart';
 import 'package:viewty/views/player/upload_dialog.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 class PlayerPage extends StatefulWidget {
   final Video video;
-  const PlayerPage({Key? key, required this.video}) : super(key: key);
+  final onInit;
+  const PlayerPage({Key? key, required this.video, this.onInit})
+      : super(key: key);
 
   @override
   State<PlayerPage> createState() => _PlayerPageState();
@@ -29,13 +32,22 @@ class _PlayerPageState extends State<PlayerPage> {
     super.initState();
     if (widget.video.url!.isNotEmpty) {
       _controller = VideoPlayerController.network(widget.video.url!)
-        ..initialize().then((_) {
-          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-          setState(() {
-            _controller.play();
-            _controller.setLooping(true);
-          });
-        });
+        ..initialize().then(
+          (_) {
+            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+            setState(() {
+              _controller.play();
+              _controller.setLooping(true);
+            });
+          },
+        );
+    }
+
+    if (widget.onInit != null) {
+      print("inited");
+      Future.delayed(Duration.zero, () async {
+        widget.onInit();
+      });
     }
   }
 
@@ -77,14 +89,15 @@ class _PlayerPageState extends State<PlayerPage> {
                 setState(() {
                   sharing = true;
                 });
+                String dynamicLink = await DynamicLinksApi.createVideoLink(
+                    widget.video.id.toString(),
+                    widget.video.offer["product"]["img_preview"]);
                 await WcFlutterShare.share(
                   sharePopupTitle: 'share',
                   subject: 'Product'.tr,
                   text: "Look video about ".tr +
-                      '${widget.video.offer["product"]["brand"]["title"]} ${widget.video.offer["product"]["title"]}: [LINK]',
-                  fileName: 'map.png',
-                  mimeType: 'image/png',
-                  bytesOfFile: [],
+                      '${widget.video.offer["product"]["brand"]["title"]} ${widget.video.offer["product"]["title"]}: $dynamicLink',
+                  mimeType: 'text/plain',
                 );
                 setState(() {
                   sharing = false;

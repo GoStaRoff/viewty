@@ -40,7 +40,6 @@ class ViewtyApi {
   //--------------------------Пользователи--------------------------------
 
   Future<Response> _registration(store) async {
-    print("_registration");
     try {
       var response = await dio
           .get("/install/?store=$store&track=${mainController.deviceID}");
@@ -67,6 +66,22 @@ class ViewtyApi {
       }
     } catch (exception) {
       return Future.error(exception.toString());
+    }
+  }
+
+  Future<VideoList> feedId(String id) async {
+    print("feedID " + id);
+    try {
+      var response = await dio.get("/feed/$id");
+      if (response.data["error"] == true) {
+        return Future.error(
+            "Упс, у нас что-то сломалось. Наши программисты уже чинят.");
+      } else {
+        return videoListFromJson(response.toString());
+      }
+    } catch (exception) {
+      return Future.error(
+          "Упс, у нас что-то сломалось. Наши программисты уже чинят.");
     }
   }
 

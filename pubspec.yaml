@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
 
   get:
+  firebase_dynamic_links:
   dio: ^4.0.0
   lottie: ^1.2.1
   flutter_svg: any

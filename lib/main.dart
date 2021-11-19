@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:viewty/main_binding.dart';
-import 'package:viewty/main_controller.dart';
-import 'package:viewty/service/api_provider.dart';
+import 'package:viewty/service/dynamic_link_api.dart';
 import 'package:viewty/service/ori_translations.dart';
 import 'package:viewty/service/pages.dart';
 
