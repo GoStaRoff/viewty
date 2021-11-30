@@ -16,7 +16,7 @@ class UploadDialog extends StatelessWidget {
         Material(
           color: Colors.transparent,
           child: Container(
-            height: Get.height / 2,
+            height: Get.height / 1.5,
             width: Get.width / 1.2,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
@@ -53,7 +53,7 @@ class UploadDialog extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      String url = "https://www.instagram.com";
+                      String url = "https://www.instagram.com/viewty.ru/";
                       if (await canLaunch(url)) {
                         await launch(
                           url,
@@ -96,7 +96,7 @@ class UploadDialog extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      String url = "https://www.tiktok.com";
+                      String url = "https://www.tiktok.com/@viewty.ru";
                       if (await canLaunch(url)) {
                         await launch(
                           url,

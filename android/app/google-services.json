@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "454170350722",
-    "project_id": "viewty-66fd1",
-    "storage_bucket": "viewty-66fd1.appspot.com"
+    "project_number": "241285682987",
+    "project_id": "viewty-4d388",
+    "storage_bucket": "viewty-4d388.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:454170350722:android:3eb64ca8e7989e9a9ed09b",
+        "mobilesdk_app_id": "1:241285682987:android:dde327203d0799c4a2976e",
         "android_client_info": {
           "package_name": "boich.technology.viewty"
         }
       },
       "oauth_client": [
         {
-          "client_id": "454170350722-227s071ubpt1q6fien1u32vo0e7v0bmr.apps.googleusercontent.com",
+          "client_id": "241285682987-ev20vpsjbmv939n7l4eldeb8jrld6c2f.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDIPzB3Yao9e1iFsd6A2WIbXFV-G5qFUzE"
+          "current_key": "AIzaSyA7zpwlJJEwy7G5eppGvKVOeZfxfj4MDts"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "454170350722-227s071ubpt1q6fien1u32vo0e7v0bmr.apps.googleusercontent.com",
+              "client_id": "241285682987-ev20vpsjbmv939n7l4eldeb8jrld6c2f.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
