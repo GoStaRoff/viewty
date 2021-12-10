@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:viewty/constants/colors.dart';
 import 'package:viewty/views/home/home_controller.dart';
-import 'package:viewty/views/player/player_page.dart';
 
 import 'empty_failure_no_internet_view.dart';
 

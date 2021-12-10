@@ -27,7 +27,7 @@
 				<key>CFBundleTypeRole</key>
 				<string>Editor</string>
 				<key>CFBundleURLName</key>
-				<string>viewtyapp.page.link</string>
+				<string>app.viewty.ru</string>
 				<key>CFBundleURLSchemes</key>
 				<array>
 					<string>customscheme</string>

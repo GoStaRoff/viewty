@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:video_player/video_player.dart';
+
 VideoList videoListFromJson(String str) => VideoList.fromJson(json.decode(str));
 
 String videoListToJson(VideoList data) => json.encode(data.toJson());
@@ -42,8 +44,10 @@ class Video {
     this.offer,
   });
 
+  VideoPlayerController? controller;
   int? id;
   String? url;
+  String duration = "0";
   String? style;
   DateTime? publishedAt;
   var author;
@@ -67,4 +71,10 @@ class Video {
         "author": author,
         "offer": offer,
       };
+
+  Future<Null> loadController() async {
+    controller = VideoPlayerController.network(url!);
+    await controller?.initialize();
+    controller?.setLooping(true);
+  }
 }

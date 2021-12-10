@@ -16,16 +16,18 @@ dependencies:
   firebase_dynamic_links:
   dio: ^4.0.0
   lottie: ^1.2.1
+  chewie: ^1.2.2
   flutter_svg: any
   swipe_cards: ^0.1.0
   http_parser: ^4.0.0
   get_storage: ^2.0.3
-  video_player: ^2.2.5
+  video_player: ^2.2.7
   url_launcher: ^6.0.12
   carousel_slider: ^4.0.0
   cupertino_icons: ^1.0.2
   wc_flutter_share: ^0.4.0
   device_info_plus: ^3.1.0
+  firebase_analytics: ^8.3.4
   internet_connection_checker: ^0.0.1+2
 
 dev_dependencies:
