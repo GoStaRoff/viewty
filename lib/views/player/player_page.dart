@@ -25,6 +25,7 @@ class PlayerPage extends StatefulWidget {
 }
 
 class _PlayerPageState extends State<PlayerPage> {
+  late VideoPlayerController _controller;
   MainController mainController = Get.find();
   HomeController homeController = Get.find();
   bool sharing = false;
@@ -47,35 +48,33 @@ class _PlayerPageState extends State<PlayerPage> {
     super.initState();
     print(widget.video.id.toString() + " started!!!");
     homeController.currentVideo = widget.video;
-
-    if (widget.video.controller == null) {
-      widget.video.loadController().then(
-        (_) {
-          widget.video.controller!.addListener(() {
-            setState(() {});
-            try {
-              homeController.currentVideo.duration =
-                  (widget.video.controller!.value.position.inSeconds /
-                          widget.video.controller!.value.duration.inSeconds *
-                          100)
-                      .floor()
-                      .toString();
-            } catch (e) {}
-            // print(widget.video.controller!.value.position.inSeconds == );
-            if (widget.video.controller!.value.position.inSeconds ==
-                widget.video.controller!.value.duration.inSeconds) {
-              useAnalytics("FEED_VIDEO_VIEW");
-            }
-          });
-          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-          setState(() {
-            widget.video.controller!.play();
-            widget.video.controller!.setLooping(true);
-          });
-        },
-      );
-    } else {
-      widget.video.controller!.play();
+    if (widget.video.url!.isNotEmpty) {
+      _controller = VideoPlayerController.network(widget.video.url!)
+        ..initialize().then(
+          (_) {
+            _controller.addListener(() {
+              setState(() {});
+              try {
+                homeController.currentVideo.duration =
+                    (_controller.value.position.inSeconds /
+                            _controller.value.duration.inSeconds *
+                            100)
+                        .floor()
+                        .toString();
+              } catch (e) {}
+              // print(_controller.value.position.inSeconds == );
+              if (_controller.value.position.inSeconds ==
+                  _controller.value.duration.inSeconds) {
+                useAnalytics("FEED_VIDEO_VIEW");
+              }
+            });
+            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+            setState(() {
+              _controller.play();
+              _controller.setLooping(true);
+            });
+          },
+        );
     }
 
     if (widget.onInit != null) {
@@ -88,8 +87,7 @@ class _PlayerPageState extends State<PlayerPage> {
   @override
   void dispose() {
     print(widget.video.id.toString() + " disposed!!!");
-    // widget.video.controller!.dispose();
-    widget.video.controller!.pause();
+    // _controller.dispose();
     super.dispose();
   }
 
@@ -101,29 +99,28 @@ class _PlayerPageState extends State<PlayerPage> {
         children: [
           Container(
             child: Center(
-              child: widget.video.controller!.value.isInitialized
+              child: _controller.value.isInitialized
                   ? GestureDetector(
                       onTap: () async {
                         setState(() {
-                          widget.video.controller!.value.isPlaying
-                              ? widget.video.controller!.pause()
-                              : widget.video.controller!.play();
+                          _controller.value.isPlaying
+                              ? _controller.pause()
+                              : _controller.play();
                         });
                       },
-                      child: VideoPlayer(widget.video.controller!))
+                      child: VideoPlayer(_controller))
                   : const CircularProgressIndicator(
                       color: Colors.white,
                       strokeWidth: 2.0,
                     ),
             ),
           ),
-          !widget.video.controller!.value.isPlaying &&
-                  widget.video.controller!.value.isInitialized
+          !_controller.value.isPlaying && _controller.value.isInitialized
               ? Positioned(
                   child: GestureDetector(
                     onTap: () async {
                       setState(() {
-                        widget.video.controller!.play();
+                        _controller.play();
                       });
                     },
                     child: const Icon(
@@ -276,13 +273,12 @@ class _PlayerPageState extends State<PlayerPage> {
                     ),
                   ),
                 ),
-                widget.video.controller!.value.isInitialized
+                _controller.value.isInitialized
                     ? LinearProgressIndicator(
                         backgroundColor: Colors.black,
                         color: WHITE,
-                        value: widget
-                                .video.controller!.value.position.inSeconds /
-                            widget.video.controller!.value.duration.inSeconds,
+                        value: _controller.value.position.inSeconds /
+                            _controller.value.duration.inSeconds,
                       )
                     : Container(),
               ],
