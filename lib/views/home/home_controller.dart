@@ -1,6 +1,7 @@
 import 'dart:async';
 
 // import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -10,7 +11,7 @@ import 'package:viewty/service/dynamic_link_api.dart';
 import 'package:viewty/views/player/player_page.dart';
 
 class HomeController extends GetxController with StateMixin<VideoList> {
-  var video;
+  late Video currentVideo;
   ViewtyApi api = ViewtyApi();
 
   var connectionStatus = 1.obs;
@@ -111,13 +112,21 @@ class HomeController extends GetxController with StateMixin<VideoList> {
     });
   }
 
-  void _next(video) {
+  void _next(Video video) async {
     nextPages.value = [
       ...nextPages.value,
       PlayerPage(
         video: video,
       ),
     ];
+    FirebaseAnalytics().logEvent(name: 'FEED_VIDEO_NEXT', parameters: {
+      'video_id': currentVideo.id,
+      'duration': currentVideo.duration,
+      'style': currentVideo.style,
+      'author': currentVideo.author["nickname"],
+      'brand': currentVideo.offer["product"]["brand"]["title"],
+      'offer': currentVideo.offer["product"]["title"],
+    });
     // print(prevPages.length + nextPages.length + 2);
     // pageController.jumpToPage(prevPages.length + nextPages.length + 2);
   }
@@ -130,6 +139,14 @@ class HomeController extends GetxController with StateMixin<VideoList> {
       ...prevPages.value
     ];
     pageController.jumpToPage(2);
+    FirebaseAnalytics().logEvent(name: 'FEED_VIDEO_PREV', parameters: {
+      'video_id': currentVideo.id,
+      'duration': currentVideo.duration,
+      'style': currentVideo.style,
+      'author': currentVideo.author["nickname"],
+      'brand': currentVideo.offer["product"]["brand"]["title"],
+      'offer': currentVideo.offer["product"]["title"],
+    });
   }
 
   @override

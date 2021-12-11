@@ -44,6 +44,7 @@ class Video {
 
   int? id;
   String? url;
+  String duration = "0";
   String? style;
   DateTime? publishedAt;
   var author;

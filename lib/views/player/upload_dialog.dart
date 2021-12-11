@@ -5,8 +5,20 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:viewty/constants/colors.dart';
 import 'package:viewty/constants/text_styles.dart';
 
-class UploadDialog extends StatelessWidget {
-  const UploadDialog({Key? key}) : super(key: key);
+class UploadDialog extends StatefulWidget {
+  final useAnalytics;
+  const UploadDialog({Key? key, required this.useAnalytics}) : super(key: key);
+
+  @override
+  State<UploadDialog> createState() => _UploadDialogState();
+}
+
+class _UploadDialogState extends State<UploadDialog> {
+  @override
+  void dispose() {
+    widget.useAnalytics("FEED_ADD_CANCEL");
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +65,7 @@ class UploadDialog extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () async {
+                      widget.useAnalytics("FEED_ADD_INSTAGRAM");
                       String url = "https://www.instagram.com/viewty.ru/";
                       if (await canLaunch(url)) {
                         await launch(
@@ -96,6 +109,7 @@ class UploadDialog extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () async {
+                      widget.useAnalytics("FEED_ADD_TIKTOK");
                       String url = "https://www.tiktok.com/@viewty.ru";
                       if (await canLaunch(url)) {
                         await launch(

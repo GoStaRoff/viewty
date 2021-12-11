@@ -29,6 +29,13 @@
             {
               "client_id": "241285682987-ev20vpsjbmv939n7l4eldeb8jrld6c2f.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "241285682987-k427rdq0338vctf8b8ntvvojsgofgs19.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "boich.technology.viewty"
+              }
             }
           ]
         }

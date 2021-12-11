@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get/instance_manager.dart';
 import 'package:viewty/main_controller.dart';
 import 'package:viewty/model/video_model.dart';
@@ -47,6 +48,7 @@ class ViewtyApi {
         return Future.error(
             "Упс, у нас что-то сломалось. Наши программисты уже чинят.");
       } else {
+        await FirebaseAnalytics().logEvent(name: 'COMMON_APP_INSTALL');
         return response;
       }
     } catch (exception) {
@@ -62,6 +64,7 @@ class ViewtyApi {
         return Future.error(
             "Упс, у нас что-то сломалось. Наши программисты уже чинят.");
       } else {
+        await FirebaseAnalytics().logEvent(name: 'COMMON_APP_LAUCH');
         return response;
       }
     } catch (exception) {
@@ -74,6 +77,11 @@ class ViewtyApi {
     try {
       var response = await dio.get("/feed/$id");
       if (response.data["error"] == true) {
+        await FirebaseAnalytics()
+            .logEvent(name: 'API_DEEPLINK_ERROR', parameters: {
+          'code': response.data["code"],
+          'message': response.data["message"],
+        });
         return Future.error(
             "Упс, у нас что-то сломалось. Наши программисты уже чинят.");
       } else {
@@ -86,10 +94,13 @@ class ViewtyApi {
   }
 
   Future<VideoList> feed() async {
-    print("feed");
     try {
       var response = await dio.get("/feed/");
       if (response.data["error"] == true) {
+        await FirebaseAnalytics().logEvent(name: 'API_FEED_ERROR', parameters: {
+          'code': response.data["code"],
+          'message': response.data["message"],
+        });
         return Future.error(
             "Упс, у нас что-то сломалось. Наши программисты уже чинят.");
       } else {
@@ -106,6 +117,10 @@ class ViewtyApi {
     try {
       var response = await dio.get("/next/$id");
       if (response.data["error"] == true) {
+        await FirebaseAnalytics().logEvent(name: 'API_NEXT_ERROR', parameters: {
+          'code': response.data["code"],
+          'message': response.data["message"],
+        });
         return Future.error(
             "Упс, у нас что-то сломалось. Наши программисты уже чинят.");
       } else {
@@ -122,6 +137,10 @@ class ViewtyApi {
     try {
       var response = await dio.get("/prev/$id");
       if (response.data["error"] == true) {
+        await FirebaseAnalytics().logEvent(name: 'API_PREV_ERROR', parameters: {
+          'code': response.data["code"],
+          'message': response.data["message"],
+        });
         return Future.error(
             "Упс, у нас что-то сломалось. Наши программисты уже чинят.");
       } else {

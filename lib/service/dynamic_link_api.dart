@@ -27,7 +27,7 @@ class DynamicLinksApi {
 
   static Future<String> createVideoLink(String videoId, String imageURL) async {
     final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
-      uriPrefix: 'https://viewtyapp.page.link',
+      uriPrefix: 'https://app.viewty.ru',
       link: Uri.parse('https://www.google.com/video?id=$videoId'),
       androidParameters: AndroidParameters(
         packageName: 'boich.technology.viewty',
