@@ -19,7 +19,7 @@ class ViewtyApi {
         baseUrl: "http://viewty.ru/api/",
         headers: {
           "Content-Type": "application/json",
-          "User-Agent": "Viewty(v0.1;API1.0;IPhone X;iOSv13;UTC3;RU)",
+          "User-Agent": "Viewty(v0.1;API1.0;iPhone X;iOS 15;UTC3;RU;RU)",
           // "User-Agent": "Viewty(v0.1;API1.0;${mainController.mobileModel};${mainController.systemVersion};${mainController.timeZone};${mainController.countryCode})",
           "Device-ID": mainController.deviceID,
         },
