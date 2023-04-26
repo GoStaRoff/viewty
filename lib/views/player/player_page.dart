@@ -1,5 +1,4 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -9,10 +8,8 @@ import 'package:viewty/constants/colors.dart';
 import 'package:viewty/constants/text_styles.dart';
 import 'package:viewty/main_controller.dart';
 import 'package:viewty/model/video_model.dart';
-import 'package:viewty/service/dynamic_link_api.dart';
 import 'package:viewty/views/home/home_controller.dart';
 import 'package:viewty/views/player/upload_dialog.dart';
-import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 class PlayerPage extends StatefulWidget {
   final Video video;
@@ -140,16 +137,16 @@ class _PlayerPageState extends State<PlayerPage> {
                   sharing = true;
                 });
                 useAnalytics("FEED_SHARE_CLICK");
-                String dynamicLink = await DynamicLinksApi.createVideoLink(
-                    widget.video.id.toString(),
-                    widget.video.offer["product"]["img_preview"]);
-                await WcFlutterShare.share(
-                  sharePopupTitle: 'share',
-                  subject: 'Product'.tr,
-                  text: "Look video about ".tr +
-                      '${widget.video.offer["product"]["brand"]["title"]} ${widget.video.offer["product"]["title"]}: $dynamicLink',
-                  mimeType: 'text/plain',
-                );
+                // String dynamicLink = await DynamicLinksApi.createVideoLink(
+                //     widget.video.id.toString(),
+                //     widget.video.offer["product"]["img_preview"]);
+                // await WcFlutterShare.share(
+                //   sharePopupTitle: 'share',
+                //   subject: 'Product'.tr,
+                //   text: "Look video about ".tr +
+                //       '${widget.video.offer["product"]["brand"]["title"]} ${widget.video.offer["product"]["title"]}: $dynamicLink',
+                //   mimeType: 'text/plain',
+                // );
                 useAnalytics("FEED_SHARE_DONE");
                 setState(() {
                   sharing = false;

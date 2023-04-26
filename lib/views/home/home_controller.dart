@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:viewty/model/video_model.dart';
 import 'package:viewty/service/api_provider.dart';
-import 'package:viewty/service/dynamic_link_api.dart';
+// import 'package:viewty/service/dynamic_link_api.dart';
 import 'package:viewty/views/player/player_page.dart';
 
 class HomeController extends GetxController with StateMixin<VideoList> {
@@ -57,7 +57,7 @@ class HomeController extends GetxController with StateMixin<VideoList> {
 
   @override
   void onInit() {
-    DynamicLinksApi.handleDynamicLink();
+    // DynamicLinksApi.handleDynamicLink();
     _listener = InternetConnectionChecker()
         .onStatusChange
         .listen((InternetConnectionStatus status) {

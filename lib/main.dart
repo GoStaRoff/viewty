@@ -1,15 +1,14 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:viewty/main_binding.dart';
 import 'package:viewty/service/ori_translations.dart';
 import 'package:viewty/service/pages.dart';
 
 void main() async {
-  await GetStorage.init();
+  // await GetStorage.init();
   if (Platform.isAndroid) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.black,
